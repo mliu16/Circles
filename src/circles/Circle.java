@@ -7,35 +7,50 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
 
-public class Circle implements Colorable {
+public class Circle implements Colorable {    
+   
+    //Create instance
     private double x;
     private double y;
     private double radius;
     private Color color;
     
-    public Circle( double x, double y, double radius ) {
+    //Create constructor
+    public Circle( double x, double y, double radius, Color color ) {
         this.x = x;
         this.y = y;
-        this.radius = radius;
-        this.color = Color.BLACK;
+        this.radius = radius;        
+        this.color = color;
     } // Circle( double, double, double )
 
+    //getColor
     @Override
     public Color getColor() {
         return this.color;
     } // getColor()
     
+    //setColor
     @Override
     public void setColor(Color color) {
         this.color = color;
     } // setColor( Color )
     
+    //Boolean method: is circles intersets
+    public boolean intersects (Circle other) {
+        double xDiff = this.x - other.x;
+        double yDiff = this.y - other.y;
+        double d = xDiff * xDiff + yDiff * yDiff;
+        double sumOfRadii = this.radius + other.radius;
+        return Math.sqrt(d) < sumOfRadii;            
+    } // intersects
+    
+    //draw circle
     public void draw( Graphics2D g2D, AffineTransform transform ) {
         double d = 2 * this.radius;
         double ulx = x - this.radius;
         double uly = y - this.radius;
-        Ellipse2D ellipse = new Ellipse2D.Double( ulx, uly, d, d );
+        Ellipse2D ellipse = new Ellipse2D.Double( ulx, uly,  d, d );
         Shape shape = transform.createTransformedShape(ellipse);
-        g2D.draw( shape );
+        g2D.draw( shape ); 
     } // draw( Graphics2D, AffineTransform )
 } // Circle
