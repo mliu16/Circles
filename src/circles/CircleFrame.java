@@ -18,9 +18,7 @@ public class CircleFrame extends JFrame {
         this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
         
         Container pane = this.getContentPane();
-        CirclePanel panel = new CirclePanel();
-//        Timer timer = new Timer( 40, panel );
-//        timer.start();
+        CirclePanel panel = new CirclePanel();   
         pane.add( panel );
         
         this.setVisible( true  );
@@ -28,7 +26,7 @@ public class CircleFrame extends JFrame {
     } // CircleFrame()
     
     public static void main(String[] args) {
-        CircleFrame spitfire = new CircleFrame();
+        CircleFrame circle = new CircleFrame();
     } // main( String [] )
     
 } // CircleFrame
