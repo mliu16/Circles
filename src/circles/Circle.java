@@ -1,18 +1,24 @@
 package circles;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
 
-public class Circle implements Colorable {    
+public class Circle{    
+    
+    private static final Color FILL_COLOR = new Color( 248, 224, 206 );
+    private static final Color EDGE_COLOR = new Color( 112, 144, 180 );
+    private static final Stroke stroke = new BasicStroke( 8.0F );
    
     //Create instance
-    private double x;
-    private double y;
-    private double radius;
+    private final double x;
+    private final double y;
+    private final double radius;
     private Color color;
     
     //Create constructor
@@ -24,13 +30,11 @@ public class Circle implements Colorable {
     } // Circle( double, double, double )
 
     //getColor
-    @Override
     public Color getColor() {
         return this.color;
     } // getColor()
     
     //setColor
-    @Override
     public void setColor(Color color) {
         this.color = color;
     } // setColor( Color )
@@ -46,11 +50,23 @@ public class Circle implements Colorable {
     
     //draw circle
     public void draw( Graphics2D g2D, AffineTransform transform ) {
+        Stroke previousStroke = g2D.getStroke();
+        Color previousColor = g2D.getColor();
+        
         double d = 2 * this.radius;
         double ulx = x - this.radius;
         double uly = y - this.radius;
         Ellipse2D ellipse = new Ellipse2D.Double( ulx, uly,  d, d );
         Shape shape = transform.createTransformedShape(ellipse);
         g2D.draw( shape ); 
+        
+        g2D.setStroke( stroke );
+        g2D.setColor( FILL_COLOR );
+        g2D.fill( shape );
+        g2D.setColor( EDGE_COLOR );
+        g2D.draw( shape );
+        
+        g2D.setColor( previousColor );
+        g2D.setStroke( previousStroke );
     } // draw( Graphics2D, AffineTransform )
 } // Circle
